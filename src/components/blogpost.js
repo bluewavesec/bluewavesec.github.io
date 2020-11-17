@@ -3,7 +3,9 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
 import { graphql } from "gatsby"
 import { Link } from "gatsby"
+import Img from "gatsby-image"
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
+
 deckDeckGoHighlightElement()
 
 const shortcodes = {
@@ -11,7 +13,10 @@ const shortcodes = {
 }
 
 const BlogPost = ({ data: { mdx } }) => {
+  let featuredImgFluid = mdx.frontmatter.featuredImage.childImageSharp.fluid
+
   return <>
+    <Img fluid={featuredImgFluid} />
     <h1>{mdx.frontmatter.title}</h1>
     <MDXProvider components={shortcodes}>
       <MDXRenderer>
@@ -28,6 +33,13 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }

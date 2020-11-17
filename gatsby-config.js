@@ -36,6 +36,13 @@ module.exports = {
         name: "blog",
         path: `${__dirname}/../bluewave-content/blog`
       }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "assets",
+        path: `${__dirname}/../bluewave-content/assets`
+      }
     }
   ],
 }
